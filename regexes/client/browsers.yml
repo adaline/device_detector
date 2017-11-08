@@ -943,9 +943,9 @@
   version: '$1'
 
 #Android Browser
-- regex: 'Android'
+- regex: 'Android.*Version\/(\d+[\.\d]+)'
   name: 'Android Browser'
-  version: ''
+  version: '$1'
   engine:
     default: 'WebKit'
 
@@ -970,7 +970,7 @@
   version: '$1'
   engine:
     default: 'WebKit'
-    
+
 #Dorado
 - regex: 'Dorado WAP-Browser[/ ](\d+[\.\d]+)'
   name: 'Dorado'
