@@ -1,5 +1,13 @@
 require_relative '../spec_helper'
 
+def test_fixture_value(expected, actual, error)
+  if expected.nil?
+    assert_nil actual, error
+  else
+    assert_equal expected, actual, error
+  end
+end
+
 describe DeviceDetector do
 
   fixture_dir = File.expand_path('../../fixtures/detector', __FILE__)
@@ -30,23 +38,23 @@ describe DeviceDetector do
                 assert_equal f["client"]["name"], detector.name, "failed client name detection"
               end
               if f["os_family"] != "Unknown"
-                assert_equal f["os_family"], os.family, "failed os family detection"
-                assert_equal f["os"]["name"], os.name, "failed os name detection"
-                assert_equal f["os"]["short_name"], os.short_name, "failed os short name detection"
-                assert_equal f["os"]["version"], os.full_version, "failed os version detection"
+                test_fixture_value f["os_family"], os.family, "failed os family detection"
+                test_fixture_value f["os"]["name"], os.name, "failed os name detection"
+                test_fixture_value f["os"]["short_name"], os.short_name, "failed os short name detection"
+                test_fixture_value f["os"]["version"], os.full_version, "failed os version detection"
               end
               if f["device"]
                 expected_type = f["device"]["type"]
                 actual_type = detector.device_type
                 if expected_type != actual_type
-                  # puts "\n", f.inspect, expected_type, actual_type, detector.device_name, regex_meta.inspect
-                  # debugger
-                  # detector.device_type
+                  puts "\n", f.inspect, expected_type, actual_type, detector.device_name
+                  debugger
+                  detector.device_type
                 end
-                assert_equal expected_type, actual_type, "failed device type detection"
+                test_fixture_value expected_type, actual_type, "failed device type detection"
                 model = f["device"]["model"]
                 model = model.to_s unless model.nil?
-                assert_equal model, detector.device_name, "failed device name detection"
+                test_fixture_value model, detector.device_name, "failed device name detection"
               end
             end
           end

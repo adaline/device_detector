@@ -5281,9 +5281,12 @@ ZTE:
     - regex: 'ZTE[ _]([a-z0-9]+)'
       model: '$1'
 
+'Andorid Chrome':
+  regex: 'Mozilla\/5.0 \(Linux; Android .+\) .+ Chrome\/.+ Mobile Safari\/.+'
+  device: 'smartphone'
+
 # Devices with undectable brand, but detectable model
 Unknown:
   regex: 'WebTV/(\d+\.\d+)'
   device: 'tv'
   model: 'Web TV'
-
